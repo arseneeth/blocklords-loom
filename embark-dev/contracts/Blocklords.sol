@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.5.0;
 
 import "./Ownable.sol";
 
@@ -45,11 +45,11 @@ contract Blocklords is Ownable {
 /////////////////////////////////////   Options    /////////////////////////////////////
   mapping ( string => uint ) options;
 
-  function setOption(string key, uint value) public onlyOwner {
+  function setOption(string memory key, uint value) public onlyOwner {
     options[key] = value;
   }
 
-  function getOption(string key) public view returns (uint) {
+  function getOption(string memory key) public view returns (uint) {
     return options[key];
   }
 
@@ -66,7 +66,7 @@ contract Blocklords is Ownable {
            amount = getBalance();
       uint coffers = allCoffers();
       require(amount - coffers > 0, "GENERALLY_NOT_ENOUGH_MONEY");  // Umcomment this requirement if you want the amount stored in coffers to be not withdrawable
-      address owner_ = owner();
+      address payable owner_ = owner();
       owner_.transfer(amount - coffers);
       return true;
   }
@@ -83,7 +83,7 @@ contract Blocklords is Ownable {
 ///////////////////////////////////// HERO STRUCT ////////////////////////////////////////////////
 
     struct Hero{
-        address OWNER;     // Wallet address of Player that owns Hero
+        address payable OWNER;     // Wallet address of Player that owns Hero
         uint LEADERSHIP;   // Leadership Stat value
         uint INTELLIGENCE; // Intelligence Stat value
         uint STRENGTH;     // Strength Stat value
@@ -104,7 +104,7 @@ contract Blocklords is Ownable {
     event HeroCreation(address creator, uint id);
     event HeroCreationWithReferalLink(address creator, uint id, address referer_address);
 
-    function putHero(uint id, uint referer_id, address referer_address, uint[] heroStats, uint[] heroItems, uint8 v, bytes32[2] rs) public payable returns(bool){
+    function putHero(uint id, uint referer_id, address payable referer_address, uint[] memory heroStats, uint[] memory heroItems, uint8 v, bytes32[2] memory rs) public payable returns(bool){
       require(playerHeroes[msg.sender] == 0, "PLAYER_ALREADY_HAVE_A_HERO");
             require(id > 0, "HERO_ID_MUST_BE_HIGHER");
             //require(payments[id].PAYER == owner, "Payer and owner do not match");
@@ -184,7 +184,7 @@ contract Blocklords is Ownable {
         uint STAT_VALUE;
         uint LEVEL;
         uint XP;         // Each battle where, Item was used by Hero, increases Experience (XP). Experiences increases Level. Level increases Stat value of Item
-        address OWNER;   // Wallet address of Item owner.
+        address payable OWNER;   // Wallet address of Item owner.
     }
 
     mapping (uint => Item) public items;
@@ -232,7 +232,7 @@ contract Blocklords is Ownable {
       return true;
     }
 
-    function updateItemsStats(uint[5] itemIds, uint battleId, uint battleResult) public {
+    function updateItemsStats(uint[5] memory itemIds, uint battleId, uint battleResult) public {
       uint zero = 0;
       uint[5] memory existedItems = [zero, zero, zero, zero, zero];
       uint itemIndexesAmount = zero;
@@ -294,7 +294,7 @@ contract Blocklords is Ownable {
             uint Duration; // 8, 12, 24 hours
             uint CreatedTime; // Unix timestamp in seconds
             uint City; // City ID (item can be added onto the market only through cities.)
-            address Seller; // Wallet Address of Item owner
+            address payable Seller; // Wallet Address of Item owner
             // bytes32 TX; // Transaction ID, (Transaction that has a record of Item Adding on Market)
 
     }
@@ -363,7 +363,7 @@ contract Blocklords is Ownable {
             return(market_items_data[itemId].Price, market_items_data[itemId].Duration, market_items_data[itemId].CreatedTime, market_items_data[itemId].City, market_items_data[itemId].Seller);
     }
 
-    function buyMarketItem(uint itemId) public payable returns(string) {
+    function buyMarketItem(uint itemId) public payable returns(string memory) {
       require(msg.sender != market_items_data[itemId].Seller,                                   "MARKET_ITEM_CAN_NOT_BE_BOUGHT_BY_SELLER");
       require(msg.value == (market_items_data[itemId].Price / 100 * options[PURCHASE_PERCENTS]),   "MARKET_ITEM_MUST_HAVE_CORRECT_ATTACHMENT"); // check transaction amount
       bool notExpired = false;
@@ -382,8 +382,8 @@ contract Blocklords is Ownable {
         uint cityId = market_items_data[itemId].City; // get the city id
 
         uint cityHero = cities[cityId].Hero;  // get the hero id
-        address cityOwner = heroes[cityHero].OWNER; // get the hero owner
-        address seller = market_items_data[itemId].Seller;
+        address payable cityOwner = heroes[cityHero].OWNER; // get the hero owner
+        address payable seller = market_items_data[itemId].Seller;
 
         cities[cityId].MarketAmount = cities[cityId].MarketAmount - 1;
 
@@ -462,7 +462,7 @@ contract Blocklords is Ownable {
             uint cityHero = cities[cityNumber].Hero;
 
             if (heroes[cityHero].OWNER != 0x0000000000000000000000000000000000000000) {
-              address heroOwner = heroes[cityHero].OWNER;
+              address payable heroOwner = heroes[cityHero].OWNER;
               uint transferValue = (cities[cityNumber].CofferSize/100)*options[COFFER_PAY_PERCENTS];
               cities[cityNumber].CofferSize = (cities[cityNumber].CofferSize/100)*options[COFFER_REMAINING_PERCENTS];
               heroOwner.transfer(transferValue);
@@ -545,15 +545,15 @@ contract Blocklords is Ownable {
     // last parameter 'dropItem' is only for contest version of game
     function addBattleLog(
       uint id, // Battle ID
-      uint[2] resultType,
+      uint[2] memory resultType,
       uint attacker, // Attacker ID
-      uint[2] attackerTroops,
-      uint[5] attackerItems,
+      uint[2] memory attackerTroops,
+      uint[5] memory  attackerItems,
       uint defenderObject, // Bandit Camp ID, Stronghold ID or City ID
       uint defender,  // Defender Lord ID
-      uint[2] defenderTroops,
-      uint[5] defenderItems,
-      uint8 v, bytes32[2] rs )
+      uint[2] memory defenderTroops,
+      uint[5] memory defenderItems,
+      uint8 v, bytes32[2] memory rs )
       //, uint itemDrop*/)
           public payable {
             require(msg.sender != owner(), "BATTLE_LOG_IS_NOT_CONSIDERING_GAME_DEVELOPER_AS_PLAYER");
@@ -623,7 +623,7 @@ contract Blocklords is Ownable {
       return (blockNumber);
     }
 
-    function straightDropItems(uint itemId) internal returns (string) {
+    function straightDropItems(uint itemId) internal returns (string memory) {
       require(strongholdAmount > 0, "How can you drop Items. Initialize Strongholds first");
       uint zero = 0;
 
@@ -659,7 +659,7 @@ contract Blocklords is Ownable {
     }
 
 
-    function dropItems(uint itemId) public onlyOwner returns(string) {
+    function dropItems(uint itemId) public onlyOwner returns(string memory) {
         require(stronghold_rewards_batch[itemId] > 0, "STRONGHOLD_REWARD_BATCH_MUST_HAVE_ITEM");
         require(block.number-blockNumber > options[ITEM_DROP_INTERVAL_BLOCKS], "STRONGHOLD_REWARD_TIME_IS_TOO_EARLY");
         return straightDropItems(itemId);
@@ -673,24 +673,26 @@ contract Blocklords is Ownable {
             stronghold_reward_logs[blockAsKey].HeroId, stronghold_reward_logs[blockAsKey].PreviousBlock  );
     }
 
-    function uint2str(uint i) internal pure returns (string){
-        if (i == 0) return "0";
-        uint j = i;
-        uint length;
-        while (j != 0){
-            length++;
+    function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
+        if (_i == 0) {
+            return "0";
+        }
+        uint j = _i;
+        uint len;
+        while (j != 0) {
+            len++;
             j /= 10;
         }
-        bytes memory bstr = new bytes(length);
-        uint k = length - 1;
-        while (i != 0){
-            bstr[k--] = byte(48 + i % 10);
-            i /= 10;
+        bytes memory bstr = new bytes(len);
+        uint k = len - 1;
+        while (_i != 0) {
+            bstr[k--] = byte(uint8(48 + _i % 10));
+            _i /= 10;
         }
         return string(bstr);
-    }
+}
 
-    function strConcat(string a, string b, string c, string d, string e) internal pure returns (string) {
+    function strConcat(string memory a, string memory b, string memory c, string memory d, string memory e) internal pure returns (string memory) {
 
       return string(abi.encodePacked(a, b, c, d, e));
 
@@ -703,46 +705,46 @@ contract Blocklords is Ownable {
 
     /* uint id, uint referer_id, address referer_address, uint[5] heroStats, uint[5] heroItems */
 
-    function prefixedHeroMessage(uint id, uint[] heroStats, uint[] heroItems) internal pure returns (bytes32) {
+    function prefixedHeroMessage(uint id, uint[] memory heroStats, uint[] memory heroItems) internal pure returns (bytes32) {
         return keccak256(abi.encodePacked('\x19TRON Signed Message:\n32', id,
           heroStats, heroItems));
     }
 
-    function checkHeroCreationSign(uint id, uint[] heroStats, uint[] heroItems, uint8 v, bytes32[2] rs) public view returns(bool) {
+    function checkHeroCreationSign(uint id, uint[] memory heroStats, uint[] memory heroItems, uint8 v, bytes32[2] memory rs) public view returns(bool) {
       bytes32 message = prefixedHeroMessage(id, heroStats, heroItems);
 
       return ecrecover(message, v, rs[0], rs[1]) == deployer;
     }
 
     function prefixedBattleLogMessage(uint id, // Battle ID
-      uint[2] resultType,
+      uint[2] memory resultType,
       uint attacker, // Attacker ID
-      uint[2] attackerTroops,
-      uint[5] attackerItems,
+      uint[2] memory attackerTroops,
+      uint[5] memory attackerItems,
       uint defenderObject, // Bandit Camp ID, Stronghold ID or City ID
       uint defender,  // Defender Lord ID
-      uint[2] defenderTroops,
-      uint[5] defenderItems) internal pure returns (bytes32) {
+      uint[2] memory defenderTroops,
+      uint[5] memory defenderItems) internal pure returns (bytes32) {
         return keccak256(abi.encodePacked('\x19TRON Signed Message:\n32', id, resultType, attacker, attackerTroops, attackerItems, defenderObject, defender, defenderTroops, defenderItems));
     }
 
     function checkBattleLogSign(uint id, // Battle ID
-      uint[2] resultType,
+      uint[2] memory resultType,
       uint attacker, // Attacker ID
-      uint[2] attackerTroops,
-      uint[5] attackerItems,
+      uint[2] memory attackerTroops,
+      uint[5] memory attackerItems,
       uint defenderObject, // Bandit Camp ID, Stronghold ID or City ID
       uint defender,  // Defender Lord ID
-      uint[2] defenderTroops,
-      uint[5] defenderItems,
-      uint8 v, bytes32[2] rs) public view returns(bool) {
+      uint[2] memory defenderTroops,
+      uint[5] memory defenderItems,
+      uint8 v, bytes32[2] memory rs) public view returns(bool) {
       bytes32 message = prefixedBattleLogMessage(id, resultType, attacker, attackerTroops, attackerItems, defenderObject, defender, defenderTroops, defenderItems);
 
       return ecrecover(message, v, rs[0], rs[1]) == deployer;
     }
 
     //function checkSign(bytes32 message, bytes sig) public view returns(string) {
-    function checkSign(string str1, string str2, uint8 v, bytes32 r, bytes32 s) public view returns(string) {
+    function checkSign(string memory str1, string memory str2, uint8 v, bytes32 r, bytes32 s) public view returns(string memory) {
 
         // This recreates the message that was signed on the client.
         bytes32 message = prefixed(str1, str2);
@@ -756,7 +758,7 @@ contract Blocklords is Ownable {
 
     }
 
-    function checkArrSign(uint[] arr, uint8 v, bytes32 r, bytes32 s) public view returns(string) {
+    function checkArrSign(uint[] memory arr, uint8 v, bytes32 r, bytes32 s) public view returns(string memory) {
 
         // This recreates the message that was signed on the client.
         bytes32 message = prefixedArr(arr);
@@ -772,11 +774,11 @@ contract Blocklords is Ownable {
 
 
         // Builds a prefixed hash to mimic the behavior of eth_sign.
-        function prefixed(string str1, string str2) internal pure returns (bytes32) {
+        function prefixed(string memory str1, string memory str2) internal pure returns (bytes32) {
             return keccak256(abi.encodePacked('\x19TRON Signed Message:\n32', str1, str2));
         }
 
-        function prefixedArr(uint[] arr) internal pure returns (bytes32) {
+        function prefixedArr(uint[] memory arr) internal pure returns (bytes32) {
             return keccak256(abi.encodePacked('\x19TRON Signed Message:\n32', arr));
         }
 
