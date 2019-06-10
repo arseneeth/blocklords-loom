@@ -1,10 +1,11 @@
 pragma solidity >=0.5.0 <0.6.0;
 
+import "./MetaDataSrore.sol";
 import "../common/Ownable.sol";
-//import "../common/MessageSigned.sol";
+import "../common/MessageSigned.sol";
 
 
-contract Blocklords is Ownable {
+contract Blocklords is Ownable, MetaDataSrore {
 
 /////////////////////////////////////   Constants    ////////////////////////////////////////////////
 
@@ -84,18 +85,18 @@ contract Blocklords is Ownable {
 
 ///////////////////////////////////// HERO STRUCT ////////////////////////////////////////////////
 
-    struct Hero{
-        address payable OWNER;     // Wallet address of Player that owns Hero
-        uint LEADERSHIP;   // Leadership Stat value
-        uint INTELLIGENCE; // Intelligence Stat value
-        uint STRENGTH;     // Strength Stat value
-        uint SPEED;        // Speed Stat value
-        uint DEFENSE;      // Defense Stat value
-        uint CREATED_TIME;
-    }
+    // struct Hero{
+    //     address payable OWNER;     // Wallet address of Player that owns Hero
+    //     uint LEADERSHIP;   // Leadership Stat value
+    //     uint INTELLIGENCE; // Intelligence Stat value
+    //     uint STRENGTH;     // Strength Stat value
+    //     uint SPEED;        // Speed Stat value
+    //     uint DEFENSE;      // Defense Stat value
+    //     uint CREATED_TIME;
+    // }
 
-    mapping (uint => Hero) heroes;
-    mapping (address => uint) playerHeroes;
+    // mapping (uint => Hero) heroes;
+    // mapping (address => uint) playerHeroes;
 
     function getPlayerHeroId(address heroOwner) public view returns(uint) {
       if (heroOwner != 0x0000000000000000000000000000000000000000)
@@ -674,6 +675,8 @@ contract Blocklords is Ownable {
         return ( stronghold_reward_logs[blockAsKey].StrongholdId, stronghold_reward_logs[blockAsKey].ItemId,
             stronghold_reward_logs[blockAsKey].HeroId, stronghold_reward_logs[blockAsKey].PreviousBlock  );
     }
+
+////////////////////////////////////////// HELPER FUNCTIONS ///////////////////////////////////////////////////
 
     function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
         if (_i == 0) {
