@@ -1,4 +1,4 @@
-        pragma solidity ^0.5.0;
+      pragma solidity >=0.5.0 <0.6.0;
 
         /// @title ERC-721 Non-Fungible Token Standard
         /// @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
