@@ -1,7 +1,7 @@
 pragma solidity >=0.5.0 <0.6.0;
 
-import "../common/Ownable.sol";
-import "../common/MessageSigned.sol";
+import "./common/Ownable.sol";
+//import "../common/MessageSigned.sol";
 
 /**
 * @title MetadataStore
@@ -10,7 +10,11 @@ import "../common/MessageSigned.sol";
 */
 
 
-contract MetaDataStore is Ownable, MessageSigned{
+contract MetaDataStore is Ownable {
+
+event HeroCreation(address creator, uint id);
+event HeroCreationWithReferalLink(address creator, uint id, address referer_address);
+
 
 /**
 * @dev Hero struct and methods

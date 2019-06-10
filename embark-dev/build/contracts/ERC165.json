@@ -1,0 +1,42 @@
+{
+  "className": "ERC165",
+  "args": [],
+  "code": "",
+  "runtimeBytecode": "",
+  "realRuntimeBytecode": "",
+  "linkReferences": {},
+  "swarmHash": "",
+  "gasEstimates": null,
+  "functionHashes": {
+    "supportsInterface(bytes4)": "01ffc9a7"
+  },
+  "abiDefinition": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "interfaceID",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "filename": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/.embark/contracts/common/ERC721.sol",
+  "originalFilename": "contracts/common/ERC721.sol",
+  "path": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/contracts/common/ERC721.sol",
+  "gas": "auto",
+  "type": "file",
+  "deploy": false,
+  "_gasLimit": 6000000,
+  "error": false
+}

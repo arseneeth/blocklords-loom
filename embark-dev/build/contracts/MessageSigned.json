@@ -1,0 +1,27 @@
+{
+  "className": "MessageSigned",
+  "args": [],
+  "code": "",
+  "runtimeBytecode": "",
+  "realRuntimeBytecode": "",
+  "linkReferences": {},
+  "swarmHash": "",
+  "gasEstimates": null,
+  "functionHashes": {},
+  "abiDefinition": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "filename": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/.embark/contracts/common/MessageSigned.sol",
+  "originalFilename": "contracts/common/MessageSigned.sol",
+  "path": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/contracts/common/MessageSigned.sol",
+  "gas": "auto",
+  "type": "file",
+  "deploy": false,
+  "_gasLimit": 6000000,
+  "error": false
+}

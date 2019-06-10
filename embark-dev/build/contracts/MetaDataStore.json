@@ -1,0 +1,156 @@
+{
+  "className": "MetaDataStore",
+  "args": [],
+  "code": "6080604081905260008054600160a060020a0319163317808255600160a060020a0316917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908290a361025c806100576000396000f3fe6080604052600436106100615763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663715018a681146100665780638da5cb5b1461007d5780638f32d59b146100ae578063f2fde38b146100d7575b600080fd5b34801561007257600080fd5b5061007b61010a565b005b34801561008957600080fd5b50610092610174565b60408051600160a060020a039092168252519081900360200190f35b3480156100ba57600080fd5b506100c3610183565b604080519115158252519081900360200190f35b3480156100e357600080fd5b5061007b600480360360208110156100fa57600080fd5b5035600160a060020a0316610194565b610112610183565b151561011d57600080fd5b60008054604051600160a060020a03909116907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908390a36000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600054600160a060020a031690565b600054600160a060020a0316331490565b61019c610183565b15156101a757600080fd5b6101b0816101b3565b50565b600160a060020a03811615156101c857600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039290921691909117905556fea165627a7a7230582095cdd28776246e6abc1881540bb135b24f57cd94ef7a22c339798f01e600bb750029",
+  "runtimeBytecode": "6080604052600436106100615763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663715018a681146100665780638da5cb5b1461007d5780638f32d59b146100ae578063f2fde38b146100d7575b600080fd5b34801561007257600080fd5b5061007b61010a565b005b34801561008957600080fd5b50610092610174565b60408051600160a060020a039092168252519081900360200190f35b3480156100ba57600080fd5b506100c3610183565b604080519115158252519081900360200190f35b3480156100e357600080fd5b5061007b600480360360208110156100fa57600080fd5b5035600160a060020a0316610194565b610112610183565b151561011d57600080fd5b60008054604051600160a060020a03909116907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908390a36000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600054600160a060020a031690565b600054600160a060020a0316331490565b61019c610183565b15156101a757600080fd5b6101b0816101b3565b50565b600160a060020a03811615156101c857600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039290921691909117905556fea165627a7a7230582095cdd28776246e6abc1881540bb135b24f57cd94ef7a22c339798f01e600bb750029",
+  "realRuntimeBytecode": "6080604052600436106100615763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663715018a681146100665780638da5cb5b1461007d5780638f32d59b146100ae578063f2fde38b146100d7575b600080fd5b34801561007257600080fd5b5061007b61010a565b005b34801561008957600080fd5b50610092610174565b60408051600160a060020a039092168252519081900360200190f35b3480156100ba57600080fd5b506100c3610183565b604080519115158252519081900360200190f35b3480156100e357600080fd5b5061007b600480360360208110156100fa57600080fd5b5035600160a060020a0316610194565b610112610183565b151561011d57600080fd5b60008054604051600160a060020a03909116907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0908390a36000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600054600160a060020a031690565b600054600160a060020a0316331490565b61019c610183565b15156101a757600080fd5b6101b0816101b3565b50565b600160a060020a03811615156101c857600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039290921691909117905556fea165627a7a72305820",
+  "linkReferences": {},
+  "swarmHash": "95cdd28776246e6abc1881540bb135b24f57cd94ef7a22c339798f01e600bb75",
+  "gasEstimates": {
+    "creation": {
+      "codeDepositCost": "120800",
+      "executionCost": "22032",
+      "totalCost": "142832"
+    },
+    "external": {
+      "isOwner()": "514",
+      "owner()": "559",
+      "renounceOwnership()": "22486",
+      "transferOwnership(address)": "22895"
+    }
+  },
+  "functionHashes": {
+    "isOwner()": "8f32d59b",
+    "owner()": "8da5cb5b",
+    "renounceOwnership()": "715018a6",
+    "transferOwnership(address)": "f2fde38b"
+  },
+  "abiDefinition": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x715018a6"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x8da5cb5b"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x8f32d59b"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0xf2fde38b"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "creator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "HeroCreation",
+      "type": "event",
+      "signature": "0xe672de785573fb4605260865482c3546117581e98d40bfd916c360cda80e5eb7"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "creator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "referer_address",
+          "type": "address"
+        }
+      ],
+      "name": "HeroCreationWithReferalLink",
+      "type": "event",
+      "signature": "0x248473ff204af878ab5c08b2480edae823f63ff958c39c5e8da38692b23a4b69"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event",
+      "signature": "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"
+    }
+  ],
+  "filename": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/.embark/contracts/MetaDataStore.sol",
+  "originalFilename": "contracts/MetaDataStore.sol",
+  "path": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/contracts/MetaDataStore.sol",
+  "gas": "auto",
+  "type": "file",
+  "deploy": true,
+  "_gasLimit": 6000000,
+  "error": false,
+  "deploymentAccount": "0xE57a93ab28c73f62bBDc4da7C62A877130F0da5D",
+  "realArgs": [],
+  "address": "0x3039A45815956E481E8eD1EfC38Ed8Af0bcb2EdB",
+  "deployedAddress": "0x3039A45815956E481E8eD1EfC38Ed8Af0bcb2EdB"
+}
