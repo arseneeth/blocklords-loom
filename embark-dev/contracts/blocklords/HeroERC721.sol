@@ -1,7 +1,7 @@
 pragma solidity >=0.5.0 <0.6.0;
 
-import "./Ownable.sol";
-import "./ERC721.sol";
+import "../common/Ownable.sol";
+import "../common/ERC721.sol";
 
 
 contract HeroERC721 is ERC721, Ownable {
