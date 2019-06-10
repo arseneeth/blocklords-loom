@@ -10,7 +10,7 @@ import "./common/Ownable.sol";
 */
 
 
-contract MetaDataStore is Ownable {
+contract MetadataStore is Ownable {
 
 event HeroCreation(address creator, uint id);
 event HeroCreationWithReferalLink(address creator, uint id, address referer_address);

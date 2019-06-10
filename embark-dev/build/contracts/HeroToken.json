@@ -1,5 +1,5 @@
 {
-  "className": "HeroERC721",
+  "className": "HeroToken",
   "args": [],
   "code": "",
   "runtimeBytecode": "",
@@ -14,6 +14,7 @@
     "heros(uint256)": "814aab78",
     "isApprovedForAll(address,address)": "e985e9c5",
     "isOwner()": "8f32d59b",
+    "mint()": "1249c58b",
     "name()": "06fdde03",
     "owner()": "8da5cb5b",
     "ownerOf(uint256)": "6352211e",
@@ -75,6 +76,15 @@
       "outputs": [],
       "payable": true,
       "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "mint",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -394,9 +404,9 @@
       "type": "event"
     }
   ],
-  "filename": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/.embark/contracts/HeroERC721.sol",
-  "originalFilename": "contracts/HeroERC721.sol",
-  "path": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/contracts/HeroERC721.sol",
+  "filename": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/.embark/contracts/HeroToken.sol",
+  "originalFilename": "contracts/HeroToken.sol",
+  "path": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/contracts/HeroToken.sol",
   "gas": "auto",
   "type": "file",
   "deploy": false,
