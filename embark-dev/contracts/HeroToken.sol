@@ -1,8 +1,7 @@
 pragma solidity >=0.5.0 <0.6.0;
 
 import "./common/Ownable.sol";
-// import "./common/TradeableERC721Token.sol";
-import "./common/ERC721.sol";
+import "./openzeppelin/ERC721.sol"; 
 import "./MetadataStore.sol";
 
 /**
