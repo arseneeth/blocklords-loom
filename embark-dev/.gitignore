@@ -6,3 +6,4 @@ coverage
 dist
 embarkArtifacts
 node_modules
+build
