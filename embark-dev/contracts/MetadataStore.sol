@@ -21,7 +21,7 @@ event HeroCreationWithReferalLink(address creator, uint id, address referer_addr
 */
 
     struct Hero{
-        address payable OWNER;     // Wallet address of Player that owns Hero
+        // address payable OWNER;     // Wallet address of Player that owns Hero
         uint LEADERSHIP;   // Leadership Stat value
         uint INTELLIGENCE; // Intelligence Stat value
         uint STRENGTH;     // Strength Stat value
@@ -29,6 +29,9 @@ event HeroCreationWithReferalLink(address creator, uint id, address referer_addr
         uint DEFENSE;      // Defense Stat value
         uint CREATED_TIME;
     }
+
+    mapping (uint => Hero) heroes;
+    mapping (address => uint) playerHeroes;
 
 /**
 * @dev Item struct and methods

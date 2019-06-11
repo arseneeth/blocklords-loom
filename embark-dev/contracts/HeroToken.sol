@@ -1,29 +1,30 @@
 pragma solidity >=0.5.0 <0.6.0;
 
 import "./common/Ownable.sol";
-import "./openzeppelin/ERC721.sol"; 
-import "./MetadataStore.sol";
+import "./openzeppelin/ERC721Full.sol"; 
+// import "./MetadataStore.sol";
 
 /**
 * @title HeroToken
 * @author Arseny Kin
 * @notice Contract for ERC721 Hero token
 */
+contract HeroToken is ERC721Full, Ownable/*, MetadataStore*/ {
+  
+	constructor() ERC721Full("HeroToken", "BLT") public { }
+
+	function mintTo(address _to, uint _tokenId) public onlyOwner{
+		// TODO: check if hero exists
+		_mint(_to, _tokenId);
+	}
 
 
-contract HeroToken is ERC721, Ownable {
+	// struct HeroToken{
+	// 	uint id;
+	//   	address payable owner;
+	//   	// Hero hero;
+	// }
 
-  string public constant name = "Hero";
-  string public constant symbol = "HERO";
-
-  struct HeroToken{
-  	uint id; 
-  }
-
-  HeroToken[] public heros;
-
-  function mint() public onlyOwner{
-
-  }
+	// HeroToken[] public heros;
 
 }
