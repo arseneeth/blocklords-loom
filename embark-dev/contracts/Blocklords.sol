@@ -33,9 +33,10 @@ contract Blocklords is HeroToken{
   MetadataStore public metadataStore;
   HeroToken public heroToken;
 
-  function createHero(address payable _player,uint _id, uint[] memory _heroStats/*, uint[] _heroItems*/) public payable {
+  function createHero(address payable _player, uint[] memory _heroStats/*, uint[] _heroItems*/) public payable {
+    //TODO: add signature techniques
+    uint256 _id = heroToken.mintTo(_player);
     metadataStore.addHero(_player, _id, _heroStats);
-    heroToken.mintTo(_player, _id);
   }
 
 }

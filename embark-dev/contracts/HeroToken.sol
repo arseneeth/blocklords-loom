@@ -13,10 +13,20 @@ contract HeroToken is ERC721Full, Ownable/*, MetadataStore*/ {
   
 	constructor() ERC721Full("HeroToken", "BLT") public { }
 
-	function mintTo(address _to, uint _tokenId) public onlyOwner{
+    /**
+    * @dev calculates the next token ID based on totalSupply
+    * @return uint256 for the next token ID
+    */
+    function _getNextTokenId() private view returns (uint256) {
+        return totalSupply().add(1); 
+    }
+
+	function mintTo(address _to) public onlyOwner returns(uint256){
 		// TODO: check if hero exists
 		// TODO: add signature check
-		_mint(_to, _tokenId);
+		uint256 newTokenId = _getNextTokenId();
+		_mint(_to, newTokenId);
+		return newTokenId;
 	}
 
 }
