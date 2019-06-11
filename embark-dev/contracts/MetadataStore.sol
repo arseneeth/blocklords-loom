@@ -15,9 +15,14 @@ import "./common/Ownable.sol";
 contract MetadataStore is Ownable {
 
     address public blocklords;
+    address public heroToken;
 
     function setBlocklordsAddress(address _blocklords) public onlyOwner {
         blocklords = _blocklords;
+    }
+
+    function setHeroTokenAddress(address _heroToken) public onlyOwner {
+        heroToken = _heroToken;
     }
 
 
@@ -46,6 +51,14 @@ contract MetadataStore is Ownable {
         playerHeroes[_player] = _id;
 
         return true;
+    }
+
+    function updateHeroOwner(uint _id, address payable _oldOwner, address payable _newOwner) public payable returns(bool) {
+        require(msg.sender == heroToken,
+            "Only blocklords contract can initiate this transaction");  
+        require(heroes[_id].OWNER == _oldOwner, // TODO: change to signature
+            "Should be the old owner");  
+        heroes[_id].OWNER = _newOwner;
     }
 
     function getHero(uint id) public view returns(address, uint, uint, uint, uint, uint, uint){
