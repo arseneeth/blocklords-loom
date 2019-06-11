@@ -1,5 +1,5 @@
 {
-  "className": "ERC165",
+  "className": "IERC165",
   "args": [],
   "code": "",
   "runtimeBytecode": "",
@@ -29,17 +29,11 @@
       "payable": false,
       "stateMutability": "view",
       "type": "function"
-    },
-    {
-      "inputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
     }
   ],
-  "filename": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/.embark/contracts/openzeppelin/ERC165.sol",
-  "originalFilename": "contracts/openzeppelin/ERC165.sol",
-  "path": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/contracts/openzeppelin/ERC165.sol",
+  "filename": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/.embark/contracts/openzeppelin/IERC165.sol",
+  "originalFilename": "contracts/openzeppelin/IERC165.sol",
+  "path": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/contracts/openzeppelin/IERC165.sol",
   "gas": "auto",
   "type": "file",
   "deploy": false,

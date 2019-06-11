@@ -1,5 +1,5 @@
 {
-  "className": "ERC721TokenReceiver",
+  "className": "IERC721Receiver",
   "args": [],
   "code": "",
   "runtimeBytecode": "",
@@ -15,19 +15,19 @@
       "constant": false,
       "inputs": [
         {
-          "name": "_operator",
+          "name": "operator",
           "type": "address"
         },
         {
-          "name": "_from",
+          "name": "from",
           "type": "address"
         },
         {
-          "name": "_tokenId",
+          "name": "tokenId",
           "type": "uint256"
         },
         {
-          "name": "_data",
+          "name": "data",
           "type": "bytes"
         }
       ],
@@ -43,9 +43,9 @@
       "type": "function"
     }
   ],
-  "filename": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/.embark/contracts/common/ERC721.sol",
-  "originalFilename": "contracts/common/ERC721.sol",
-  "path": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/contracts/common/ERC721.sol",
+  "filename": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/.embark/contracts/openzeppelin/IERC721Receiver.sol",
+  "originalFilename": "contracts/openzeppelin/IERC721Receiver.sol",
+  "path": "/home/x332/Projects/blocklords/blocklords-loom/embark-dev/contracts/openzeppelin/IERC721Receiver.sol",
   "gas": "auto",
   "type": "file",
   "deploy": false,
