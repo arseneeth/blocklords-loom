@@ -31,7 +31,7 @@ contract MetadataStore is Ownable {
 */
 
     struct Hero{
-        address payable OWNER;     // Wallet address of Player that owns Hero
+        // address payable OWNER;     // Wallet address of Player that owns Hero
         uint LEADERSHIP;   // Leadership Stat value
         uint INTELLIGENCE; // Intelligence Stat value
         uint STRENGTH;     // Strength Stat value
@@ -47,22 +47,23 @@ contract MetadataStore is Ownable {
         require(msg.sender == blocklords,
             "Only blocklords contract can initiate this transaction");
 
-        heroes[_id] = Hero(_player, _heroStats[0], _heroStats[1],  _heroStats[2], _heroStats[3], _heroStats[4], block.number);
+        heroes[_id] = Hero(/*_player,*/ _heroStats[0], _heroStats[1],  _heroStats[2], _heroStats[3], _heroStats[4], block.number);
         playerHeroes[_player] = _id;
 
         return true;
     }
 
-    function updateHeroOwner(uint _id, address payable _oldOwner, address payable _newOwner) public payable returns(bool) {
-        require(msg.sender == heroToken,
-            "Only blocklords contract can initiate this transaction");  
-        require(heroes[_id].OWNER == _oldOwner, // TODO: change to signature
-            "Should be the old owner");  
-        heroes[_id].OWNER = _newOwner;
-    }
+    // function updateHeroOwner(uint _id, address payable _oldOwner, address payable _newOwner) public payable returns(bool) {
+    //     require(msg.sender == heroToken,
+    //         "Only blocklords contract can initiate this transaction");  
+    //     require(heroes[_id].OWNER == _oldOwner, // TODO: change to signature
+    //         "Should be the old owner");  
+    //     heroes[_id].OWNER = _newOwner;
+    // }
 
-    function getHero(uint id) public view returns(address, uint, uint, uint, uint, uint, uint){
-        return (heroes[id].OWNER, heroes[id].LEADERSHIP, heroes[id].INTELLIGENCE, heroes[id].STRENGTH, heroes[id].SPEED, heroes[id].DEFENSE, heroes[id].CREATED_TIME);
+    function getHero(uint id) public view returns(/*address,*/ uint, uint, uint, uint, uint, uint){
+        // return (heroes[id].OWNER, heroes[id].LEADERSHIP, heroes[id].INTELLIGENCE, heroes[id].STRENGTH, heroes[id].SPEED, heroes[id].DEFENSE, heroes[id].CREATED_TIME);
+        return (heroes[id].LEADERSHIP, heroes[id].INTELLIGENCE, heroes[id].STRENGTH, heroes[id].SPEED, heroes[id].DEFENSE, heroes[id].CREATED_TIME);
     }
 
     function getPlayerHeroId(address heroOwner) public view returns(uint) {
@@ -70,9 +71,6 @@ contract MetadataStore is Ownable {
         return playerHeroes[heroOwner];
       return playerHeroes[msg.sender];
     }
-
-
-
 
 /**  
 * @dev Item struct and methods
