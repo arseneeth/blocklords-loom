@@ -15,16 +15,8 @@ contract HeroToken is ERC721Full, Ownable/*, MetadataStore*/ {
 
 	function mintTo(address _to, uint _tokenId) public onlyOwner{
 		// TODO: check if hero exists
+		// TODO: add signature check
 		_mint(_to, _tokenId);
 	}
-
-
-	// struct HeroToken{
-	// 	uint id;
-	//   	address payable owner;
-	//   	// Hero hero;
-	// }
-
-	// HeroToken[] public heros;
 
 }

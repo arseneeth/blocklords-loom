@@ -1,6 +1,8 @@
 pragma solidity >=0.5.0 <0.6.0;
 
 import "./common/Ownable.sol";
+// import "./Blocklords.sol";
+
 //import "../common/MessageSigned.sol";
 
 /**
@@ -12,8 +14,11 @@ import "./common/Ownable.sol";
 
 contract MetadataStore is Ownable {
 
-event HeroCreation(address creator, uint id);
-event HeroCreationWithReferalLink(address creator, uint id, address referer_address);
+    address public blocklords;
+
+    function setBlocklordsAddress(address _blocklords) public onlyOwner {
+        blocklords = _blocklords;
+    }
 
 
 /**
@@ -21,7 +26,7 @@ event HeroCreationWithReferalLink(address creator, uint id, address referer_addr
 */
 
     struct Hero{
-        // address payable OWNER;     // Wallet address of Player that owns Hero
+        address payable OWNER;     // Wallet address of Player that owns Hero
         uint LEADERSHIP;   // Leadership Stat value
         uint INTELLIGENCE; // Intelligence Stat value
         uint STRENGTH;     // Strength Stat value
@@ -33,7 +38,30 @@ event HeroCreationWithReferalLink(address creator, uint id, address referer_addr
     mapping (uint => Hero) heroes;
     mapping (address => uint) playerHeroes;
 
-/**
+    function addHero(address payable _player,uint _id, uint[] memory _heroStats/*, uint[] _heroItems*/) public payable returns(bool) {
+        require(msg.sender == blocklords,
+            "Only blocklords contract can initiate this transaction");
+
+        heroes[_id] = Hero(_player, _heroStats[0], _heroStats[1],  _heroStats[2], _heroStats[3], _heroStats[4], block.number);
+        playerHeroes[_player] = _id;
+
+        return true;
+    }
+
+    function getHero(uint id) public view returns(address, uint, uint, uint, uint, uint, uint){
+        return (heroes[id].OWNER, heroes[id].LEADERSHIP, heroes[id].INTELLIGENCE, heroes[id].STRENGTH, heroes[id].SPEED, heroes[id].DEFENSE, heroes[id].CREATED_TIME);
+    }
+
+    function getPlayerHeroId(address heroOwner) public view returns(uint) {
+      if (heroOwner != 0x0000000000000000000000000000000000000000)
+        return playerHeroes[heroOwner];
+      return playerHeroes[msg.sender];
+    }
+
+
+
+
+/**  
 * @dev Item struct and methods
 */
 

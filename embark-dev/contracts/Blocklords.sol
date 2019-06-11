@@ -10,7 +10,7 @@ import "./HeroToken.sol";
 */
 
 
-contract Blocklords is MetadataStore, HeroToken{
+contract Blocklords is HeroToken{
 
   // Market Durations
   uint constant HOURS_8       = 28800;      // 28_800 Seconds are 8 hours
@@ -26,8 +26,16 @@ contract Blocklords is MetadataStore, HeroToken{
   uint constant PVC= 2;       // Player Against City
   uint constant PVE= 3;       // Player Against NPC on the map
 
+  event HeroCreation(address creator, uint id);
+  event HeroCreationWithReferalLink(address creator, uint id, address referer_address);
+
+
   MetadataStore public metadataStore;
   HeroToken public heroToken;
 
+  function createHero(address payable _player,uint _id, uint[] memory _heroStats/*, uint[] _heroItems*/) public payable {
+    metadataStore.addHero(_player, _id, _heroStats);
+    heroToken.mintTo(_player, _id);
+  }
 
 }
