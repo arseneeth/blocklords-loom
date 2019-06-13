@@ -33,11 +33,10 @@ contract HeroToken is ERC721Full, Ownable/*, MetadataStore*/ {
     * @return uint256 for the token ID
     */
  
-	function mintTo(address _to) public onlyOwner returns(uint256){
+	function mintTo(address _to) public returns(uint256){
         require(msg.sender == blocklords, // TODO: add signature check
             "Only blocklords contract can initiate this transaction");
 
-		// TODO: add check if hero exists
 		uint256 newTokenId = _getNextTokenId();
 		_mint(_to, newTokenId);
 		return newTokenId;

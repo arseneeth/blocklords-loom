@@ -40,14 +40,12 @@ contract MetadataStore is Ownable {
     }
 
     mapping (uint => Hero) heroes;
-    // mapping (address => uint) playerHeroes;
 
-    function addHero(/*address payable _player,*/uint _id, uint[] memory _heroStats/*, uint[] _heroItems*/) public payable returns(bool) {
+    function addHero(uint _id, uint[] memory _heroStats/*, uint[] _heroItems*/) public payable returns(bool) {
         require(msg.sender == blocklords,
             "Only blocklords contract can initiate this transaction");
 
         heroes[_id] = Hero( _heroStats[0], _heroStats[1],  _heroStats[2], _heroStats[3], _heroStats[4], block.number);
-        // playerHeroes[_player] = _id;
 
         return true;
     }
@@ -56,11 +54,6 @@ contract MetadataStore is Ownable {
         return (heroes[id].LEADERSHIP, heroes[id].INTELLIGENCE, heroes[id].STRENGTH, heroes[id].SPEED, heroes[id].DEFENSE, heroes[id].CREATED_TIME);
     }
 
-    // function getPlayerHeroId(address heroOwner) public view returns(uint) {
-    //   if (heroOwner != 0x0000000000000000000000000000000000000000)
-    //     return playerHeroes[heroOwner];
-    //   return playerHeroes[msg.sender];
-    // }
 
 /**  
 * @dev Item struct and methods
@@ -80,6 +73,29 @@ contract MetadataStore is Ownable {
         uint XP;         // Each battle where, Item was used by Hero, increases Experience (XP). Experiences increases Level. Level increases Stat value of Item
         address payable OWNER;   // Wallet address of Item owner.
     }
+
+    mapping (uint => Item) public items;
+    mapping (uint => uint) public updated_items; // battle id => item id
+
+    function addItem (
+      uint _creationType,
+      uint _id,
+      uint _statType,
+      uint _quality,
+      uint _generation,
+      uint _statValue
+    ) public onlyOwner {
+      require( _id > 0, "ITEM_ID_MUST_BE_HIGHER" );
+      require( items[id].OWNER == 0x0000000000000000000000000000000000000000, "ITEM_IN_BLOCKCHAIN" );
+
+      items[id] = Item(_statType, _quality, _generation, _statValue, 0, 0, msg.sender);
+
+      // if ( creationType == STRONGHOLD_REWARD_BATCH ) {
+      //   addStrongholdReward( id );     //if putItem(stronghold reward) ==> add to StrongholdReward
+      // }
+    }
+
+
 
 /**
 * @dev MarketItem struct and methods
