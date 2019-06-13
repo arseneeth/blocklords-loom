@@ -84,15 +84,18 @@ contract MetadataStore is Ownable {
       uint _quality,
       uint _generation,
       uint _statValue
-    ) public onlyOwner {
-      require( _id > 0, "ITEM_ID_MUST_BE_HIGHER" );
-      require( items[id].OWNER == 0x0000000000000000000000000000000000000000, "ITEM_IN_BLOCKCHAIN" );
+    ) public {
+        require(msg.sender == blocklords,
+            "Only blocklords contract can initiate this transaction");
 
-      items[id] = Item(_statType, _quality, _generation, _statValue, 0, 0, msg.sender);
+        require( _id > 0, "ITEM_ID_MUST_BE_HIGHER" );
+        require( items[_id].OWNER == 0x0000000000000000000000000000000000000000, "ITEM_IN_BLOCKCHAIN" );
 
-      // if ( creationType == STRONGHOLD_REWARD_BATCH ) {
-      //   addStrongholdReward( id );     //if putItem(stronghold reward) ==> add to StrongholdReward
-      // }
+        items[_id] = Item(_statType, _quality, _generation, _statValue, 0, 0, msg.sender);
+
+        // if ( creationType == STRONGHOLD_REWARD_BATCH ) {
+        //   addStrongholdReward( id );     //if putItem(stronghold reward) ==> add to StrongholdReward
+        // }
     }
 
 

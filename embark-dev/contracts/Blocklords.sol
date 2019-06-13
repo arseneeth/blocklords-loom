@@ -26,8 +26,8 @@ contract Blocklords is HeroToken{
   uint constant PVC= 2;       // Player Against City
   uint constant PVE= 3;       // Player Against NPC on the map
 
-  event HeroCreation(address creator, uint id);
-  event HeroCreationWithReferalLink(address creator, uint id, address referer_address);
+  event HeroCreated(address payable creator, uint id);
+  event HeroCreatedWithReferalLink(address payable creator, uint id, address payable referer_address);
 
 
   MetadataStore public metadataStore;
@@ -37,6 +37,8 @@ contract Blocklords is HeroToken{
     //TODO: add signature techniques, currently onlyOwner
     uint256 _id = heroToken.mintTo(_player);
     metadataStore.addHero(/*_player,*/ _id, _heroStats);
+
+    emit HeroCreated(_player, _id);
   }
 
 }
