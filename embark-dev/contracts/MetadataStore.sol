@@ -98,7 +98,15 @@ contract MetadataStore is Ownable {
         // }
     }
 
+    function getItem(uint id) public view returns(uint, uint, uint, uint, uint, uint, address payable){
+      return (items[id].STAT_TYPE, items[id].QUALITY, items[id].GENERATION, items[id].STAT_VALUE, items[id].LEVEL, items[id].XP, items[id].OWNER);
+    }
 
+    function getUpdatedItem(uint battleId) public view returns(uint) {
+      return updated_items[battleId];
+    }
+
+    // TODO: update item stats functions
 
 /**
 * @dev MarketItem struct and methods
@@ -112,6 +120,10 @@ contract MetadataStore is Ownable {
             uint City; // City ID (item can be added onto the market only through cities.)
             address payable Seller; // Wallet Address of Item owner
     }
+
+
+
+
 
 /**
 * @dev City struct and methods
