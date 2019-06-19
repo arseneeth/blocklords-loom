@@ -25,6 +25,23 @@ contract MetadataStore is Ownable {
         heroToken = _heroToken;
     }
 
+  // function random(uint entropy, uint number) private view returns (uint8) {
+  //      // NOTE: This random generator is not entirely safe and   could potentially compromise the game
+  //         return uint8(1 + uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty, entropy)))%number);
+  //    }
+
+    function dataHash(
+        bytes32 memory _signature,
+        uint _nonce        
+    ) internal view returns (bytes32) {
+        // TODO: add signature verification
+        return keccak256(abi.encodePacked(address(this), _signature, _nonce));
+    }
+
+  function random(bytes32 entropy) private view returns (uint8) {
+          return uint8(1 + uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty, entropy)))%number);
+     }
+
 
 /**
 * @dev Hero struct and methods
@@ -105,6 +122,21 @@ contract MetadataStore is Ownable {
     function getUpdatedItem(uint battleId) public view returns(uint) {
       return updated_items[battleId];
     }
+
+    function isUpgradableItem(uint id) private view returns (bool){
+      if (id == 0) return false;
+      if (items[id].STAT_VALUE == 0) return false;
+
+      if (items[id].QUALITY == 1 && items[id].LEVEL == 3) return false;
+      if (items[id].QUALITY == 2 && items[id].LEVEL == 5) return false;
+      if (items[id].QUALITY == 3 && items[id].LEVEL == 7) return false;
+      if (items[id].QUALITY == 4 && items[id].LEVEL == 9) return false;
+      if (items[id].QUALITY == 5 && items[id].LEVEL == 10) return false;
+
+      return true;
+    }
+
+
 
     // TODO: update item stats functions
 
