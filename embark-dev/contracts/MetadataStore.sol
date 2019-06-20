@@ -31,15 +31,16 @@ contract MetadataStore is Ownable {
   //    }
 
     function dataHash(
-        bytes32 memory _signature,
+        bytes32 _signature,
         uint _nonce        
     ) internal view returns (bytes32) {
         // TODO: add signature verification
         return keccak256(abi.encodePacked(address(this), _signature, _nonce));
     }
 
-  function random(bytes32 entropy) private view returns (uint8) {
-          return uint8(1 + uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty, entropy)))%number);
+  function random(bytes32 entropy, uint nonce) private view returns (uint8) { // TODO: check do we really need nonce here!
+       // NOTE: This random generator is not entirely safe and   could potentially compromise the game,
+          return uint8(1 + uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty, entropy)))%nonce);
      }
 
 
@@ -139,6 +140,69 @@ contract MetadataStore is Ownable {
 
 
     // TODO: update item stats functions
+
+   function updateItemsStats(uint[5] memory itemIds, uint battleId, uint battleResult) public {
+      uint zero = 0;
+      uint[5] memory existedItems = [zero, zero, zero, zero, zero];
+      uint itemIndexesAmount = zero;
+
+      for (uint i=zero; i<itemIds.length; i++) {
+          // Check if Exp can be increased
+          if (isUpgradableItem(itemIds[i])) {
+
+            existedItems[itemIndexesAmount] = itemIds[i];
+            itemIndexesAmount++;
+          }
+      }
+
+      // No Upgradable Items
+      if (itemIndexesAmount == zero) {
+        return;
+      }
+
+      // uint seed = block.number + randomFromAddress(msg.sender) + getBalance();
+      
+      bytes32 _signature = '0x'; // !!! FOR TEST PURPOSES ONLY
+      uint _nonce = 1; // !!! FOR TEST PURPOSES ONLY
+
+      bytes32 bytesHash = dataHash(_signature, _nonce);
+      uint randomIndex = random(bytesHash, _nonce);
+      randomIndex--; // It always starts from 1. While arrays start from 0
+
+      uint id = existedItems[randomIndex];
+
+
+      // Increase XP that represents on how many battles the Item was involved into
+
+// !!! TODO: maybe introduce battle system in the separate smart contract
+
+      // if (battleResult == ATTACKER_WON)
+      //   items[id].XP = items[id].XP + 2;
+      // else
+      //   items[id].XP = items[id].XP + 1;
+
+
+      // Increase Level
+      if (
+                items[id].LEVEL == 0 && items[id].XP >= 2 ||
+                items[id].LEVEL == 1 && items[id].XP >= 6 ||
+                items[id].LEVEL == 2 && items[id].XP >= 20 ||
+                items[id].LEVEL == 3 && items[id].XP >= 48 ||
+                items[id].LEVEL == 4 && items[id].XP >= 92 ||
+                items[id].LEVEL == 5 && items[id].XP >= 152 ||
+                items[id].LEVEL == 6 && items[id].XP >= 228 ||
+                items[id].LEVEL == 7 && items[id].XP >= 318 ||
+                items[id].LEVEL == 8 && items[id].XP >= 434 ||
+                items[id].LEVEL == 9 && items[id].XP >= 580
+      ) {
+        items[id].LEVEL = items[id].LEVEL + 1;
+        items[id].STAT_VALUE = items[id].STAT_VALUE + 1;
+        // return "Item level is increased by 1";
+      }
+
+      updated_items[battleId] = id;
+    }
+
 
 /**
 * @dev MarketItem struct and methods
