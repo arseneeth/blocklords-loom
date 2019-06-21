@@ -25,6 +25,19 @@ contract MetadataStore is Ownable {
         heroToken = _heroToken;
     }
 
+    mapping ( string => uint ) options;
+
+    function setOption(string memory key, uint value) public onlyOwner {
+      options[key] = value;
+    }
+
+    function getOption(string memory key) public view returns (uint) {
+      return options[key];
+    }
+
+
+
+
   // function random(uint entropy, uint number) private view returns (uint8) {
   //      // NOTE: This random generator is not entirely safe and   could potentially compromise the game
   //         return uint8(1 + uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty, entropy)))%number);
@@ -217,6 +230,52 @@ contract MetadataStore is Ownable {
             address payable Seller; // Wallet Address of Item owner
     }
 
+    mapping (uint => MarketItemData) market_items_data;
+
+    function addMarketItem(uint itemId, uint price, uint duration, uint city) public payable { // START AUCTION FUNCTION
+      require(msg.sender != owner(),                                                      "GAME_OWNER_IS_NOT_ALLOWED_TO_PLAY_GAME");
+            require(items[itemId].OWNER == msg.sender,                                    "MARKET_ITEM_MUST_BE_MANAGED_BY_OWNER");
+            require(price > 0,                                                            "MARKET_ITEM_PRICE_MUST_BE_HIGHER");
+//            require(duration == HOURS_8 || duration == HOURS_12 || duration == HOURS_24,  "MARKET_ITEM_MUST_HAVE_VALID_DURATION");
+            require(hasCorrectMarketFee(duration),                                        "MARKET_ITEM_MUST_HAVE_CORRECT_FEE");
+            if (market_items_data[itemId].City != 0) {
+              bool notExpired = market_items_data[itemId].CreatedTime+market_items_data[itemId].Duration>now;
+              if (!notExpired) {
+                uint cityId2 = market_items_data[itemId].City;
+                cities[cityId2].MarketAmount = cities[cityId2].MarketAmount - 1;
+
+                delete market_items_data[itemId];
+              }
+              else {
+                require(!notExpired, "MARKET_ITEM_ALREADY_IN_BLOCKCHAIN");
+              }
+            }
+            /* require(removeMarketItemIfExpired(itemId),                                    "MARKET_ITEM_IN_BLOCKCHAIN_AND_ITS_DURATION_DID_NOT_EXPIRED"); */
+            require(cities[city].MarketCap > cities[city].MarketAmount,                  "MARKET_ITEM_MUST_CAN_NOT_BE_PUT_ON_FULL_MARKET"); // Also Checks that city exists
+
+            // if ( options[SELLING_COFFER_PERCENTS] > 0) {
+            //   uint coffer = msg.value / 100 * options[SELLING_COFFER_PERCENTS];
+            //   cities[city].CofferSize = cities[city].CofferSize + coffer;
+            // }
+
+            cities[city].MarketAmount = cities[city].MarketAmount + 1;
+
+            market_items_data[itemId] = MarketItemData(price, duration, now, city, msg.sender);
+    }
+
+
+    function hasCorrectMarketFee(uint duration) internal view returns(bool) {
+      // if (duration == HOURS_8){
+      //     return msg.value == options[HOURS_8_FEE];
+      // } else if (duration == HOURS_12){
+      //     return msg.value == options[HOURS_12_FEE];
+      // } else if (duration == HOURS_24){
+      //     return msg.value == options[HOURS_24_FEE];
+      // }
+      return false;
+    }
+
+
 
 
 
@@ -235,6 +294,9 @@ contract MetadataStore is Ownable {
         uint MarketCap;
         uint MarketAmount;
     }
+
+    mapping(uint => City) public cities;
+
 
 /**
 * @dev Stronghold struct and methods
